@@ -6,7 +6,7 @@
 /*   By: demane <emanedanielakim@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:18:55 by demane            #+#    #+#             */
-/*   Updated: 2026/01/29 23:26:36 by demane           ###   ########.fr       */
+/*   Updated: 2026/01/30 17:29:23 by demane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	ft_access_in_rep(char **path_params, char ***split_val,
 	path = *path_params;
 	if (!path)
 		return (0);
-	check = ft_strchr(path, '.');
-	if (check == NULL || *(check + 1) != '/')
+	check = ft_strchr(path, '/');
+	if (check == NULL)
 		return (0);
 	acs_val = access(path, X_OK);
 	if (acs_val == 0)
