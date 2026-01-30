@@ -6,7 +6,7 @@
 /*   By: demane <emanedanielakim@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 22:44:02 by demane            #+#    #+#             */
-/*   Updated: 2026/01/29 23:49:01 by demane           ###   ########.fr       */
+/*   Updated: 2026/01/30 13:58:13 by demane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	ft_cd(char **args, t_shell *shell)
 	if (args[1] && args[2])
 		return (ft_print_err_cd());
 	if (ft_assign_path(args, shell, &path) == FALSE)
-		return (shell->should_exit = 1, 1);
+		return (ft_free((void **)&path), shell->should_exit = 1, 1);
 	if (!path)
 		return (ft_putstr_fd("minishield: cd: << HOME >> not defined", \
 STDERR_FILENO), 1);
 	if (ft_check_sign(&path, shell) == FALSE)
-		return (1);
+		return (ft_free((void **)&path), shell->should_exit = 1, 1);
 	if (!path)
 		return (ft_putstr_fd("minishield: cd: << OLDPWD >> not defined", \
 STDERR_FILENO), 1);
@@ -85,7 +85,8 @@ STDERR_FILENO), 1);
 		ft_putstr_fd("minishield: chdir: error retrieving current directory: getcwd:\
 cannot access parent directories: No such file or directory\n", STDERR_FILENO);
 	if (chdir(path) == -1)
-		return (ft_print_err_cd_no_directory(args[1]));
+		return (ft_free((void **)&path), ft_free((void **)&l_path),
+			ft_print_err_cd_no_directory(args[1]));
 	return (ft_assign_new_pwd(shell, l_path), ft_assign_oldpwd(shell, l_path),
 		ft_free((void **)&path), ft_free((void **)&l_path), 0);
 }
