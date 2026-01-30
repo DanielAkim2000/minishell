@@ -15,7 +15,7 @@ DIR_EXECUTOR= executor
 DIR_UTILS   = utils
 DIR_SIGNALS = signals
 
-# ================= FILES =================
+## FILES
 
 FILES_LEXER = lexer_free_utils.c lexer_operators.c lexer_print_err.c \
 	      lexer_reader.c lexer_segs.c lexer_tokens.c lexer_utils.c \
@@ -47,7 +47,7 @@ FILES_UTILS = utils.c
 
 FILES_SIGNALS = signals.c signals_handle.c signals_ignore.c
 
-# ================= SRCS =================
+## SRCS
 
 SRCS_LEXER     = $(addprefix $(DIR_SRCS)/$(DIR_LEXER)/, $(FILES_LEXER))
 SRCS_PARSER   = $(addprefix $(DIR_SRCS)/$(DIR_PARSER)/, $(FILES_PARSER))
@@ -63,15 +63,15 @@ SRCS =  $(SRCS_LEXER) $(SRCS_PARSER) $(SRCS_EXPANDER) \
 	$(SRCS_UTILS) $(SRCS_SIGNALS) $(DIR_SRCS)/process_minishell2.c \
 	$(DIR_SRCS)/process_minishell.c $(DIR_SRCS)/main.c
 
-# ================= OBJS =================
+## OBJS
 
 OBJS = $(SRCS:$(DIR_SRCS)/%.c=$(DIR_OBJS)/%.o)
 
-# ================= LIBFT =================
+## LIBFT
 
 LIBFT = $(DIR_INCLUDES)/libft/libft.a
 
-# ================ STYLE =================
+## STYLE
 
 
 RESET   = \033[0m
@@ -101,7 +101,7 @@ endef
 
 
 
-# ================= RULES =================
+## RULES
 
 all: $(NAME)
 
@@ -128,3 +128,7 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+## CMDS VALGRIND
+
+# valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
